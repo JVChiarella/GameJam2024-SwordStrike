@@ -92,7 +92,7 @@ static bool is_first_time = true;
 static menu_screen current_screen;  // Current menu screen
 static int item_count;              // The number of selection items in the current screen
 static const char *heading;         // The heading of the menu screen
-static int select;                  // The currently selected item
+static int selection;               // The currently selected item
 
 /*==============================
     set_menu_screen
@@ -106,7 +106,7 @@ void set_menu_screen(menu_screen screen)
     switch (current_screen) {
     case SCREEN_PLAYERCOUNT:
         item_count = max_playercount;
-        select = playercount-1;
+        selection = playercount-1;
 
         if (max_playercount == 0) {
             heading = "No controllers connected!\n";
@@ -116,12 +116,12 @@ void set_menu_screen(menu_screen screen)
         break;
     case SCREEN_AIDIFFICULTY:
         item_count = DIFF_HARD+1;
-        select = ai_difficulty;
+        selection = ai_difficulty;
         heading = "AI difficulty?\n";
         break;
     case SCREEN_MINIGAME:
         item_count = global_minigame_count;
-        select = 0;
+        selection = 0;
         heading = "Pick a game!\n";
         break;
     }
@@ -199,21 +199,21 @@ char* menu(void)
 
         int selection_offset = get_selection_offset(joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY));
         if (selection_offset != 0) {
-            if (!has_moved_selection) select += selection_offset;
+            if (!has_moved_selection) selection += selection_offset;
             has_moved_selection = true;
         } else {
             has_moved_selection = false;
         }
 
-        if (select < 0) select = 0;
-        if (select > item_count-1) select = item_count-1;
+        if (selection < 0) selection = 0;
+        if (selection > item_count-1) selection = item_count-1;
 
         joypad_buttons_t btn = joypad_get_buttons_pressed(JOYPAD_PORT_1);
 
         if (btn.a) {
             switch (current_screen) {
                 case SCREEN_PLAYERCOUNT:
-                    playercount = select+1;
+                    playercount = selection+1;
                     targetscreen = SCREEN_AIDIFFICULTY;
                     if (targetscreen == SCREEN_AIDIFFICULTY && (SKIP_DIFFICULTYSELECTION || playercount == MAXPLAYERS))
                         targetscreen = SCREEN_MINIGAME;
@@ -222,14 +222,14 @@ char* menu(void)
                     set_menu_screen(targetscreen);
                     break;
                 case SCREEN_AIDIFFICULTY:
-                    ai_difficulty = select;
+                    ai_difficulty = selection;
                     if (SKIP_MINIGAMESELECTION)
                         menu_done = true;
                     else
                         set_menu_screen(SCREEN_MINIGAME);
                     break;
                 case SCREEN_MINIGAME:
-                    selected_minigame = select;
+                    selected_minigame = selection;
                     menu_done = true;
                     break;
             }
@@ -289,7 +289,7 @@ char* menu(void)
         ycur += 4;
 
         for (int i = 0; i < item_count; i++) {
-            if (select == i) yselect_target = ycur;
+            if (selection == i) yselect_target = ycur;
 
             switch (current_screen) {
             case SCREEN_PLAYERCOUNT:
@@ -310,7 +310,7 @@ char* menu(void)
                 .width = 300, .wrap = WRAP_WORD,
             };
 
-            Minigame *cur = &global_minigame_list[sorted_indices[select]];
+            Minigame *cur = &global_minigame_list[sorted_indices[selection]];
 
             int y0 = 180;
             y0 += rdpq_text_printf(&parms, FONT_TEXT, 10, y0, "%s\n\n", cur->definition.description).advance_y;
