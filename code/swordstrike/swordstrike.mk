@@ -1,4 +1,12 @@
 ASSETS_LIST += \
+	filesystem/swordstrike/ammon_idle_left.sprite \
+	filesystem/swordstrike/ammon_idle_right.sprite \
+	filesystem/swordstrike/ammon_punch_left_1.sprite \
+	filesystem/swordstrike/ammon_punch_left_2.sprite \
+	filesystem/swordstrike/ammon_punch_left_3.sprite \
+	filesystem/swordstrike/ammon_punch_right_1.sprite \
+	filesystem/swordstrike/ammon_punch_right_2.sprite \
+	filesystem/swordstrike/ammon_punch_right_3.sprite \
 	filesystem/swordstrike/fighter_jumping_left.sprite \
 	filesystem/swordstrike/fighter_jumping_right.sprite \
 	filesystem/swordstrike/fighter_left_neutral.sprite \

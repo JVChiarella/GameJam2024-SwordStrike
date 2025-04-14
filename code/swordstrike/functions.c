@@ -508,10 +508,10 @@ void draw_players_and_level(struct player** players, sprite_t** player_sprites, 
     // DRAW PLAYER SPRITES
     sprite_t* fighter_left_neutral = player_sprites[0];
     sprite_t* fighter_right_neutral = player_sprites[1];
-    sprite_t* fighter_left_jump = player_sprites[2];
-    sprite_t* fighter_right_jump = player_sprites[3];
-    sprite_t* fighter_left_slide = player_sprites[4];
-    sprite_t* fighter_right_slide = player_sprites[5];
+    // sprite_t* fighter_left_jump = player_sprites[2];
+    // sprite_t* fighter_right_jump = player_sprites[3];
+    // sprite_t* fighter_left_slide = player_sprites[4];
+    // sprite_t* fighter_right_slide = player_sprites[5];
     for(int i = 0; i < 4; i++){
         // draw player if alive
         if(players[i]->isAlive){
@@ -535,10 +535,12 @@ void draw_players_and_level(struct player** players, sprite_t** player_sprites, 
                     } else {
                         // SLIDING
                         if(players[i]->slideCooldown > 0){
-                            rdpq_sprite_blit(fighter_left_slide, players[i]->xPos, players[i]->yPos, NULL);
+                            // rdpq_sprite_blit(fighter_left_slide, players[i]->xPos, players[i]->yPos, NULL);
+                            rdpq_sprite_blit(fighter_left_neutral, players[i]->xPos, players[i]->yPos, NULL);
                         // FREE FALL
                         } else {
-                            rdpq_sprite_blit(fighter_left_jump, players[i]->xPos, players[i]->yPos, NULL);
+                            // rdpq_sprite_blit(fighter_left_jump, players[i]->xPos, players[i]->yPos, NULL);
+                            rdpq_sprite_blit(fighter_left_neutral, players[i]->xPos, players[i]->yPos, NULL);
                         }
                     }
                 } else if(players[i]->direction == 1){
@@ -548,10 +550,12 @@ void draw_players_and_level(struct player** players, sprite_t** player_sprites, 
                     } else {
                         // SLIDING
                         if(players[i]->slideCooldown > 0){
-                            rdpq_sprite_blit(fighter_right_slide, players[i]->xPos, players[i]->yPos, NULL);
+                            // rdpq_sprite_blit(fighter_right_slide, players[i]->xPos, players[i]->yPos, NULL);
+                            rdpq_sprite_blit(fighter_right_neutral, players[i]->xPos, players[i]->yPos, NULL);
                         // FREE FALL
                         } else {
-                            rdpq_sprite_blit(fighter_right_jump, players[i]->xPos, players[i]->yPos, NULL);
+                            // rdpq_sprite_blit(fighter_right_jump, players[i]->xPos, players[i]->yPos, NULL);
+                            rdpq_sprite_blit(fighter_right_neutral, players[i]->xPos, players[i]->yPos, NULL);
                         }
                     }
                 }
